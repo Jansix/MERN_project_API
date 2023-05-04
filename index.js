@@ -22,7 +22,11 @@ app.use(express.urlencoded({ extended: true }));
 
 app.use(
   cors({
-    origin: ["*"],
+    origin: [
+      "https://mern-project-api-five.vercel.app",
+      "https://mern-project-client-ruby.vercel.app/",
+      "*",
+    ],
   })
 );
 

@@ -9,16 +9,7 @@ const passport = require("passport"); //引入npm的passport套件
 require("./config/passport")(passport); //引入自建資料夾內的檔案執行唯一的函式並將passport當作參數
 const cors = require("cors");
 
-app.use(function (req, res, next) {
-  console.log("請求中");
-  res.header("Access-Control-Allow-Methods", "GET, POST, PUT, DELETE, OPTIONS");
-  res.header(
-    "Access-Control-Allow-Headers",
-    "Origin, X-Requested-With, Content-Type, Accept"
-  );
-  res.header("Access-Control-Allow-Origin", "*");
-  next();
-});
+app.use(cors());
 
 mongoose
   .connect(process.env.MONGODB_CONNECTION)

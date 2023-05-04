@@ -19,7 +19,16 @@ mongoose
 
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
-app.use(cors({ origin: "*", allowedHeaders: "*", methods: "*" }));
+
+app.use(
+  cors({
+    origin: [
+      "https://mern-project-api-five.vercel.app",
+      "https://mern-project-client-ruby.vercel.app/",
+      "*",
+    ],
+  })
+);
 app.options("*", cors());
 
 //將auth這個middleware 註冊到/api/user這個路徑，所有經過這路由都須先經過auth的FN

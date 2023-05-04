@@ -8,6 +8,18 @@ const courseRoute = require("./routes").course;
 const passport = require("passport"); //引入npm的passport套件
 require("./config/passport")(passport); //引入自建資料夾內的檔案執行唯一的函式並將passport當作參數
 const cors = require("cors");
+
+app.use(function (req, res, next) {
+  console.log("請求中");
+  res.header("Access-Control-Allow-Methods", "GET, POST, PUT, DELETE, OPTIONS");
+  res.header(
+    "Access-Control-Allow-Headers",
+    "Origin, X-Requested-With, Content-Type, Accept"
+  );
+  res.header("Access-Control-Allow-Origin", "*");
+  next();
+});
+
 mongoose
   .connect(process.env.MONGODB_CONNECTION)
   .then(() => {
@@ -19,17 +31,6 @@ mongoose
 
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
-
-app.use(function (req, res, next) {
-  res.header("Access-Control-Allow-Methods", "GET, POST, PUT, DELETE, OPTIONS");
-  res.header(
-    "Access-Control-Allow-Headers",
-    "Origin, X-Requested-With, Content-Type, Accept"
-  );
-  res.header("Access-Control-Allow-Origin", "*");
-  next();
-});
-app.options("*", cors());
 
 //將auth這個middleware 註冊到/api/user這個路徑，所有經過這路由都須先經過auth的FN
 app.use("/api/user", authRoute);

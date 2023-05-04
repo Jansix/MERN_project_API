@@ -22,13 +22,18 @@ app.use(express.urlencoded({ extended: true }));
 
 app.use(
   cors({
-    origin: [
-      "https://mern-project-api-five.vercel.app",
-      "https://mern-project-client-ruby.vercel.app/",
-      "*",
-    ],
+    origin: ["*"],
   })
 );
+
+app.use(function (req, res, next) {
+  res.header("Access-Control-Allow-Origin", "*");
+  res.header(
+    "Access-Control-Allow-Headers",
+    "Origin, X-Requested-With, Content-Type, Accept"
+  );
+  next();
+});
 app.options("*", cors());
 
 //將auth這個middleware 註冊到/api/user這個路徑，所有經過這路由都須先經過auth的FN

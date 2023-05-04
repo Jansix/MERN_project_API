@@ -19,7 +19,8 @@ mongoose
 
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
-app.use(cors());
+app.use(cors({ origin: "*", allowedHeaders: "*", methods: "*" }));
+
 //將auth這個middleware 註冊到/api/user這個路徑，所有經過這路由都須先經過auth的FN
 app.use("/api/user", authRoute);
 

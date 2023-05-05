@@ -5,9 +5,11 @@ const dotenv = require("dotenv");
 dotenv.config();
 const authRoute = require("./routes/").auth; //引入routes資料夾內的auth檔案，資料夾若未指定檔案則會預設在目錄位置
 const courseRoute = require("./routes").course;
+const testRoute = require("./routes").test;
 const passport = require("passport"); //引入npm的passport套件
 require("./config/passport")(passport); //引入自建資料夾內的檔案執行唯一的函式並將passport當作參數
 const cors = require("cors");
+const PORT = process.env.PORT || 8080;
 
 app.use(cors());
 
@@ -34,12 +36,8 @@ app.use(
   courseRoute
 );
 
-app.get("/test", (req, res) => {
-  return res.send("測試");
-});
+app.use("/test", testRoute);
 
-const port = process.env.port || 8080;
-
-app.listen(port, () => {
+app.listen(PORT, () => {
   console.log("後端伺服器在port8080聆聽。。");
 });
